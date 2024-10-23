@@ -21,7 +21,7 @@ class CanalComunicacao(numeroProcessos: Int) {
     fun enviarMensagem(mensagem: Mensagem) {
 
         // Broadcast
-        if (mensagem.tipo == TipoMensagem.REQUISICAO)
+        if (mensagem.tipo == TipoMensagem.REQUISICAO || mensagem.tipo == TipoMensagem.LIBERACAO)
             for (i in mensagens.indices) {
                 if (i != mensagem.processoOrigem) {
                     mensagens[i].add(mensagem)
@@ -29,7 +29,7 @@ class CanalComunicacao(numeroProcessos: Int) {
             }
 
         // Unicast
-        else if (mensagem.tipo == TipoMensagem.RESPOSTA || mensagem.tipo == TipoMensagem.LIBERACAO)
+        else if (mensagem.tipo == TipoMensagem.RESPOSTA)
             mensagens[mensagem.processoDestino!!].add(mensagem)
     }
 
