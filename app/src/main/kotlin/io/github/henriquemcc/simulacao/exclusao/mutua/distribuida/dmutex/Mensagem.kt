@@ -20,4 +20,9 @@ class Mensagem(
      * Tipo de mensagem enviada.
      */
     val tipo: TipoMensagem
-)
+): Comparable<Mensagem> {
+    override fun compareTo(other: Mensagem): Int {
+        return this.timestampOrigem.compareTo(other.timestampOrigem)
+    }
+
+}
