@@ -28,7 +28,7 @@ class Processo(
     /**
      * Array para controle da entrada na área crítica
      */
-    private val entradaAreaCritica = Array<Boolean>(algoritmoDMutex.numeroProcessos) {
+    private var entradaAreaCritica = Array<Boolean>(algoritmoDMutex.numeroProcessos) {
         false
     }
 
@@ -90,6 +90,10 @@ class Processo(
             // Entrando na área crítica
             if (Random.nextBoolean()) {
                 println("Processo $id quer acessar á área crítica em ${relogio.get()}")
+                entradaAreaCritica = Array<Boolean>(algoritmoDMutex.numeroProcessos) {
+                    false
+                }
+                entradaAreaCritica[id] = true
                 enviarMensagem(Mensagem(id, Int.MAX_VALUE, relogio.get(), TipoMensagem.REQUISICAO))
 
                 // Esperando entrar na área crítica
