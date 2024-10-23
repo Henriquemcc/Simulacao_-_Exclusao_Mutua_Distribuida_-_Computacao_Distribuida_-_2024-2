@@ -48,6 +48,7 @@ class Processo(
             sleep(Random.nextLong(1000))
             val mensagens = algoritmoDMutex.canalComunicacao.receberMensagem(id)
             for (mensagem in mensagens) {
+                println("Processo ${mensagem.processoDestino} recebe mensagem de processo ${mensagem.processoOrigem} do tipo ${mensagem.tipo}, com timestamp ${mensagem.timestampOrigem}")
                 relogio.set(max(relogio.get(), mensagem.timestampOrigem) +1)
                 when (mensagem.tipo) {
                     TipoMensagem.REQUISICAO -> {
