@@ -20,8 +20,6 @@ class CanalComunicacao(numeroProcessos: Int) {
      */
     fun enviarMensagem(mensagem: Mensagem) {
 
-        println("Processo ${mensagem.processoOrigem} envia mensagem para processo ${mensagem.processoDestino} do tipo ${mensagem.tipo}, com timestamp ${mensagem.timestampOrigem}")
-
         // Broadcast
         if (mensagem.tipo == TipoMensagem.REQUISICAO)
             for (i in mensagens.indices) {
