@@ -37,7 +37,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "io.github.henriquemcc.simulacao.exclusao.mutua.distribuida.AppKt"
+    mainClass = "io.github.henriquemcc.simulacao.exclusao.mutua.distribuida.dmutex.DMutexKt"
 }
 
 tasks.named<Test>("test") {
