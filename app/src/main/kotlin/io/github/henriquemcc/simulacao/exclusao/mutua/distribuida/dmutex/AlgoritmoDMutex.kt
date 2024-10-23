@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  */
 class AlgoritmoDMutex(
     val numeroProcessos: Int
-) {
+): Thread() {
 
     /**
      * Flag que as threads dos processos vão olhar para finalizarem a execução.
@@ -39,7 +39,7 @@ class AlgoritmoDMutex(
     /**
      * Executa os processos.
      */
-    fun run() {
+    override fun run() {
         for (processo in processos)
             processo.start()
     }
