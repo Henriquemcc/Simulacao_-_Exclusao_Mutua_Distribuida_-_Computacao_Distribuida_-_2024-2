@@ -89,12 +89,7 @@ class Processo(
 
             // Entrando na área crítica
             if (Random.nextBoolean()) {
-                println("Processo $id quer acessar á área crítica em ${relogio.get()}")
-                entradaAreaCritica = Array<Boolean>(algoritmoDMutex.numeroProcessos) {
-                    false
-                }
-                entradaAreaCritica[id] = true
-                enviarMensagem(Mensagem(id, Int.MAX_VALUE, relogio.get(), TipoMensagem.REQUISICAO))
+                solicitarEntradaAreaCritica()
 
                 // Esperando entrar na área crítica
                 while (!entradaaAreaCriticaPermitida()) {
@@ -112,11 +107,25 @@ class Processo(
                 }
 
                 // Saindo da área crítica
-                relogio.set(relogio.get()+1)
-                println("Processo $id quer sair da área crítica em ${relogio.get()}")
-                enviarMensagem(Mensagem(id, Int.MAX_VALUE, relogio.get(), TipoMensagem.LIBERACAO))
+                solicitarSaidaAreaCritica()
             }
         }
+    }
+
+    private fun solicitarSaidaAreaCritica() {
+        relogio.set(relogio.get() + 1)
+        println("Processo $id quer sair da área crítica em ${relogio.get()}")
+        enviarMensagem(Mensagem(id, Int.MAX_VALUE, relogio.get(), TipoMensagem.LIBERACAO))
+    }
+
+    private fun solicitarEntradaAreaCritica() {
+        relogio.set(relogio.get()+1)
+        println("Processo $id quer acessar á área crítica em ${relogio.get()}")
+        entradaAreaCritica = Array<Boolean>(algoritmoDMutex.numeroProcessos) {
+            false
+        }
+        entradaAreaCritica[id] = true
+        enviarMensagem(Mensagem(id, Int.MAX_VALUE, relogio.get(), TipoMensagem.REQUISICAO))
     }
 
     /**
