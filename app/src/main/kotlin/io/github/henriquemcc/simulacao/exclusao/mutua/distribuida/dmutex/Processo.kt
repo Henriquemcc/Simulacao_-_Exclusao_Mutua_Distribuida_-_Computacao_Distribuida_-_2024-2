@@ -13,7 +13,7 @@ import kotlin.random.Random
 class Processo(
     private val id: Int,
     private val algoritmoDMutex: AlgoritmoDMutex,
-): Thread() {
+): Thread(), Comparable<Processo> {
 
     /**
      * Fila de requisições do DMutex.
@@ -76,6 +76,15 @@ class Processo(
     override fun run () {
         println("Processo $id está em execução")
         daemonMensagens.start()
+    }
+
+    /**
+     * Compara um Processo com outro.
+     * @param other Outro processo a ser comparado com este.
+     * @return Retorna 0 se esta instância for igual, um número negativo se esta instância for menor e um número positivo se esta instância for maior que a outra.
+     */
+    override fun compareTo(other: Processo): Int {
+        return this.id.compareTo(other.id)
     }
 
 
