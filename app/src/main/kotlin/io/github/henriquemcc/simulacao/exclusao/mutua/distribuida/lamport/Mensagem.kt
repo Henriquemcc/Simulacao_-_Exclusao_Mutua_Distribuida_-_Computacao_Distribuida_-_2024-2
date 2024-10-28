@@ -1,4 +1,4 @@
-package io.github.henriquemcc.simulacao.exclusao.mutua.distribuida.dmutex
+package io.github.henriquemcc.simulacao.exclusao.mutua.distribuida.lamport
 
 class Mensagem(
     /**

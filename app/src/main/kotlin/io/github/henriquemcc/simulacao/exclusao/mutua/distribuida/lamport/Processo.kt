@@ -1,4 +1,4 @@
-package io.github.henriquemcc.simulacao.exclusao.mutua.distribuida.dmutex
+package io.github.henriquemcc.simulacao.exclusao.mutua.distribuida.lamport
 
 import java.util.*
 import java.util.concurrent.atomic.AtomicLong
@@ -8,11 +8,11 @@ import kotlin.random.Random
 /**
  * Classe que representa um processo.
  * @param id ID do processo.
- * @param algoritmoDMutex Classe que instanciou o processo.
+ * @param algoritmoLamport Classe que instanciou o processo.
  */
 class Processo(
     private val id: Int,
-    private val algoritmoDMutex: AlgoritmoDMutex,
+    private val algoritmoLamport: AlgoritmoLamport,
 ): Thread(), Comparable<Processo> {
 
     /**
@@ -28,7 +28,7 @@ class Processo(
     /**
      * Array para controle da entrada na área crítica
      */
-    private var entradaAreaCritica = Array<Boolean>(algoritmoDMutex.numeroProcessos) {
+    private var entradaAreaCritica = Array<Boolean>(algoritmoLamport.numeroProcessos) {
         false
     }
 
@@ -44,9 +44,9 @@ class Processo(
 
         var processoComecoFila = -1
 
-        while (!algoritmoDMutex.stopFlag.get()) {
+        while (!algoritmoLamport.stopFlag.get()) {
             sleep(Random.nextLong(1000))
-            val mensagens = algoritmoDMutex.canalComunicacao.receberMensagem(id)
+            val mensagens = algoritmoLamport.canalComunicacao.receberMensagem(id)
             for (mensagem in mensagens) {
                 println("Processo $id recebe mensagem de processo ${mensagem.processoOrigem} do tipo ${mensagem.tipo}, com timestamp ${mensagem.timestampOrigem} em ${relogio.get()}")
                 relogio.set(max(relogio.get(), mensagem.timestampOrigem) +1)
@@ -65,7 +65,7 @@ class Processo(
             }
             if (filaRequisicoes.isNotEmpty() && processoComecoFila != filaRequisicoes.first().processoOrigem) {
                 processoComecoFila = filaRequisicoes.first().processoOrigem
-                algoritmoDMutex.canalComunicacao.enviarMensagem(Mensagem(id, filaRequisicoes.first().processoOrigem, relogio.get(), TipoMensagem.RESPOSTA))
+                algoritmoLamport.canalComunicacao.enviarMensagem(Mensagem(id, filaRequisicoes.first().processoOrigem, relogio.get(), TipoMensagem.RESPOSTA))
             }
 
         }
@@ -73,7 +73,7 @@ class Processo(
 
     private fun enviarMensagem(mensagem: Mensagem) {
         println("Processo ${mensagem.processoOrigem} envia mensagem para processo ${mensagem.processoDestino} do tipo ${mensagem.tipo}, com timestamp ${mensagem.timestampOrigem}")
-        algoritmoDMutex.canalComunicacao.enviarMensagem(mensagem)
+        algoritmoLamport.canalComunicacao.enviarMensagem(mensagem)
     }
 
     /**
@@ -83,7 +83,7 @@ class Processo(
         println("Processo $id está em execução")
         daemonMensagens.start()
 
-        while (!algoritmoDMutex.stopFlag.get()) {
+        while (!algoritmoLamport.stopFlag.get()) {
             sleep(Random.nextLong(15000))
             relogio.set(relogio.get()+1)
 
@@ -121,7 +121,7 @@ class Processo(
     private fun solicitarEntradaAreaCritica() {
         relogio.set(relogio.get()+1)
         println("Processo $id quer acessar á área crítica em ${relogio.get()}")
-        entradaAreaCritica = Array<Boolean>(algoritmoDMutex.numeroProcessos) {
+        entradaAreaCritica = Array<Boolean>(algoritmoLamport.numeroProcessos) {
             false
         }
         entradaAreaCritica[id] = true

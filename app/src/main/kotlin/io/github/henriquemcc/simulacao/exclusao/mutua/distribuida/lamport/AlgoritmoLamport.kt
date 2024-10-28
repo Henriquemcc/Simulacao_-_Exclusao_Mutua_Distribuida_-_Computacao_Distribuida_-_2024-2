@@ -1,12 +1,12 @@
-package io.github.henriquemcc.simulacao.exclusao.mutua.distribuida.dmutex
+package io.github.henriquemcc.simulacao.exclusao.mutua.distribuida.lamport
 
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * Classe que armazena as principais variáveis do algoritmo DMutex.
+ * Classe que armazena as principais variáveis do algoritmo de Lamport.
  * @param numeroProcessos Número de processos a serem executados.
  */
-class AlgoritmoDMutex(
+class AlgoritmoLamport(
     val numeroProcessos: Int
 ): Thread() {
 

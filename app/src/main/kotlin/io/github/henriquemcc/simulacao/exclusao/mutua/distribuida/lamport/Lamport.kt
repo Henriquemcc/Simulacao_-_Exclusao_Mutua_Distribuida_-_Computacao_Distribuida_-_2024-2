@@ -1,16 +1,16 @@
-package io.github.henriquemcc.simulacao.exclusao.mutua.distribuida.dmutex
+package io.github.henriquemcc.simulacao.exclusao.mutua.distribuida.lamport
 
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
 fun main() {
-    val algoritmoDMutex = AlgoritmoDMutex(20)
-    algoritmoDMutex.start()
+    val algoritmoLamport = AlgoritmoLamport(20)
+    algoritmoLamport.start()
 
     // Executando programa por 1 minuto
     Executors.newScheduledThreadPool(1).schedule( {
         println("Finalizando a simulação")
-        algoritmoDMutex.stopFlag.set(true)
+        algoritmoLamport.stopFlag.set(true)
     }, 1, TimeUnit.MINUTES)
 
 }
