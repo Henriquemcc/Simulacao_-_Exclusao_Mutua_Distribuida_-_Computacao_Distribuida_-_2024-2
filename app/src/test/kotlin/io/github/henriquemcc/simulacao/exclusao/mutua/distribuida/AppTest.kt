@@ -3,8 +3,8 @@
  */
 package io.github.henriquemcc.simulacao.exclusao.mutua.distribuida
 
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Test
 
 class AppTest {
     @Test
