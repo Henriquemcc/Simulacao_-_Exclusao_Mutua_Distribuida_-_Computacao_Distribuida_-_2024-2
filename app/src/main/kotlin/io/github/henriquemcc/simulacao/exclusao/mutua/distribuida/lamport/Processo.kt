@@ -137,5 +137,11 @@ class Processo(
         return this.id.compareTo(other.id)
     }
 
-
+    /**
+     * Interrompe a execução desta thread.
+     */
+    override fun interrupt() {
+        super.interrupt()
+        daemonMensagens.interrupt()
+    }
 }

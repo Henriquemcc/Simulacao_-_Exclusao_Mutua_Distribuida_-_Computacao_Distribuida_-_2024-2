@@ -43,4 +43,15 @@ class AlgoritmoLamport(
         for (processo in processos)
             processo.start()
     }
+
+    /**
+     * Interrompe a execução desta thread.
+     */
+    override fun interrupt() {
+        super.interrupt()
+
+        // Interrompendo as threads filhas.
+        for (processo in processos)
+            processo.interrupt()
+    }
 }
