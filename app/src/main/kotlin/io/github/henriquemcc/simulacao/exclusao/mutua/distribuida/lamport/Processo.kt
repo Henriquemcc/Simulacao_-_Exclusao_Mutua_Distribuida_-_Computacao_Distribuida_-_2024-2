@@ -44,7 +44,7 @@ class Processo(
 
         var processoComecoFila = -1
 
-        while (!algoritmoLamport.stopFlag.get()) {
+        while (true) {
             sleep(Random.nextLong(1000))
             val mensagens = algoritmoLamport.canalComunicacao.receberMensagem(id)
             for (mensagem in mensagens) {
@@ -83,7 +83,7 @@ class Processo(
         println("Processo $id está em execução")
         daemonMensagens.start()
 
-        while (!algoritmoLamport.stopFlag.get()) {
+        while (true) {
             sleep(Random.nextLong(15000))
             relogio.set(relogio.get()+1)
 
