@@ -63,7 +63,7 @@ class Processo(
                     }
                 }
             }
-            if (filaRequisicoes.isNotEmpty() && processoComecoFila != filaRequisicoes.first().processoOrigem) {
+            if (!algoritmoLamport.stopFlag.get() && filaRequisicoes.isNotEmpty() && processoComecoFila != filaRequisicoes.first().processoOrigem) {
                 processoComecoFila = filaRequisicoes.first().processoOrigem
                 algoritmoLamport.canalComunicacao.enviarMensagem(Mensagem(id, filaRequisicoes.first().processoOrigem, relogio.get(), TipoMensagem.RESPOSTA))
             }
@@ -92,7 +92,7 @@ class Processo(
                 solicitarEntradaAreaCritica()
 
                 // Esperando entrar na área crítica
-                while (!entradaaAreaCriticaPermitida()) {
+                while ((!algoritmoLamport.stopFlag.get()) && !entradaaAreaCriticaPermitida()) {
                     sleep(1000)
                     relogio.set(relogio.get()+1)
                 }
@@ -101,7 +101,7 @@ class Processo(
                 // Na área crítica
                 relogio.set(relogio.get()+1)
                 println("Processo $id está acessando a área crítica em ${relogio.get()}")
-                while (Random.nextBoolean()) {
+                while ((!algoritmoLamport.stopFlag.get()) && Random.nextBoolean()) {
                     sleep(1000)
                     relogio.set(relogio.get()+1)
                 }
