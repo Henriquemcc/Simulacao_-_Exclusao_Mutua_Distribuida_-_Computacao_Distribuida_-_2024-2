@@ -11,7 +11,9 @@ fun main() {
     Executors.newScheduledThreadPool(1).schedule( {
         println("Finalizando a simulação")
         algoritmoLamport.stopFlag.set(true)
-        println(algoritmoLamport.stopFlag.get())
+        while (!algoritmoLamport.isInterrupted)
+            algoritmoLamport.interrupt()
+        return@schedule
     }, 5, TimeUnit.SECONDS)
 
 }
