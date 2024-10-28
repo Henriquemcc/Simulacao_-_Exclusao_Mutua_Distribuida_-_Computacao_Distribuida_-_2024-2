@@ -1,11 +1,15 @@
 package io.github.henriquemcc.simulacao.exclusao.mutua.distribuida.lamport
 
+import io.github.henriquemcc.simulacao.exclusao.mutua.distribuida.myio.printHeader
 import io.github.henriquemcc.simulacao.exclusao.mutua.distribuida.myio.readDouble
 import io.github.henriquemcc.simulacao.exclusao.mutua.distribuida.myio.readInteger
 import io.github.henriquemcc.simulacao.exclusao.mutua.distribuida.myio.readString
 import kotlin.math.floor
 
 fun main() {
+
+    // Imprimindo cabeçalho
+    printHeader("Algoritmo de Lamport")
 
     // Obtendo quantidade de processos
     val numeroProcessos = readInteger("Número de processos:", IntRange(1, Int.MAX_VALUE))
