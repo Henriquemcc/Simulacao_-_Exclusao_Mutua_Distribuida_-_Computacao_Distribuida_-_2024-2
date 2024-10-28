@@ -12,10 +12,10 @@ fun main() {
     printHeader("Algoritmo de Lamport")
 
     // Obtendo quantidade de processos
-    val numeroProcessos = readInteger("Número de processos:", IntRange(1, Int.MAX_VALUE))
+    val numeroProcessos = readInteger("Número de processos: ", IntRange(1, Int.MAX_VALUE))
 
     // Obtendo o tempo de simulação
-    val tempoSimulacao = readDouble("Tempo de simulação (em segundos):", LongRange(1, Double.MAX_VALUE.toLong()))
+    val tempoSimulacao = readDouble("Tempo de simulação (em segundos): ", LongRange(1, Double.MAX_VALUE.toLong()))
 
     // Criando uma instância do algoritmo de Lamport
     val algoritmoLamport = AlgoritmoLamport(numeroProcessos)
