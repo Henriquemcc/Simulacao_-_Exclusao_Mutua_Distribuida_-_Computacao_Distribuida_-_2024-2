@@ -10,6 +10,7 @@ fun main() {
     // Executando programa por 1 minuto
     Executors.newScheduledThreadPool(1).schedule( {
         println("Finalizando a simulação")
-        algoritmoLamport.interrupt()
+        algoritmoLamport.stopFlag.set(true)
     }, 1, TimeUnit.MINUTES)
+
 }

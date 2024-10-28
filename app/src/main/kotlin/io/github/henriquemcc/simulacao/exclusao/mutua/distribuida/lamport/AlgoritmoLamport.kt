@@ -11,6 +11,11 @@ class AlgoritmoLamport(
 ): Thread() {
 
     /**
+     * Flag que as threads dos processos vão olhar para finalizarem a execução.
+     */
+    var stopFlag = AtomicBoolean(false)
+
+    /**
      * Lista de processos que serão executados.
      */
     private val processos = sortedSetOf<Processo>()
