@@ -54,4 +54,15 @@ class AlgoritmoLamport(
         for (processo in processos)
             processo.interrupt()
     }
+
+    /**
+     * Verificando se a thread foi interrompida.
+     * @return Valor booleano indicando se a thread foi interrompida.
+     */
+    override fun isInterrupted(): Boolean {
+        val interrupted = mutableListOf(super.isInterrupted())
+        for (processo in processos)
+            interrupted.add(processo.isInterrupted)
+        return !interrupted.contains(false)
+    }
 }
