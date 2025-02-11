@@ -1,3 +1,5 @@
+[English Version](README.EN.md)
+
 # Simulação - Exclusão Mútua Distribuída - Computação Distribuída - 2024-2
 
 Trabalho da matéria Computação Distribuída no qual deveria ser desenvolvido uma simulação do funcionamento de algoritmos de Exclusão Mútua Distribuída.
@@ -34,7 +36,7 @@ gradlew build
 
 Os arquivos .jar podem ser gerados através do gradle. Para gerar os arquivos .jar, no terminal, na pasta do projeto, digite o seguinte comando:
 
-No terminal do Linux ou Mac:
+No Terminal do Linux ou Mac:
 
 ```
 ./gradlew jar
